@@ -1,17 +1,17 @@
-public class QueueImplementedWithArray {
-    private Integer[] _array;
+public class QueueImplementedWithArray<T> {
+    private Object[] _array;
     private int _head;
     private int _tail;
     private int _size;
 
     public QueueImplementedWithArray(int size){
-        _array = new Integer[size];
+        _array = new Object[size];
         _head = 0;
         _tail = -1;
         _size = size;
     }
 
-    public void enqueue(int value){
+    public void enqueue(T value){
         if(_tail == _size-1) {
             if (_head > 0) {
                 _tail = 0;
@@ -31,12 +31,12 @@ public class QueueImplementedWithArray {
         _array[_tail] = value;
     }
 
-    public Integer dequeue(){
+    public T dequeue(){
         if(_array[_head] == null){
             System.out.println("No element to dequeue");
             return null;
         }
-        int returnValue = _array[_head];
+        T returnValue = (T) _array[_head];
         _array[_head] = null;
         _head++;
         if(_head == _size){
@@ -47,6 +47,10 @@ public class QueueImplementedWithArray {
             _tail = -1;
         }
         return returnValue;
+    }
+
+    public T peek(){
+        return (T) _array[_head];
     }
 
     public void printArrayImplementation(){ //For debugging/viewing how it works
@@ -77,7 +81,7 @@ public class QueueImplementedWithArray {
     }
 
     public void resize(){
-        Integer[] temp = new Integer[_size*2];
+        Object[] temp = new Object[_size*2];
         int i;
         if(_head == 0){
             for(i = 0; i < _size; i++){
